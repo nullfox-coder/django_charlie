@@ -1,10 +1,18 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import ChatMessage
 from django.db.models import Q
 
+User = get_user_model()
+
+
+class ActiveUsersView(APIView):
+    def get(self, request):
+        online_users = list(User.objects.filter(is_active=True).values('id', 'username'))
+        return Response({"active_users": online_users})
+    
 class ChatHistoryView(APIView):
     permission_classes = [IsAuthenticated]
     

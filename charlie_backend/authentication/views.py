@@ -107,6 +107,7 @@ class GoogleAuthCallback(APIView):
                             "access_token": str(token.access_token),  # ✅ Convert to string
                             "refresh_token": str(token),  # ✅ Convert to string
                             "user": {
+                                "user_id" : user.id,
                                 "email": user.email,
                                 "first_name": user.first_name,
                                 "last_name": user.last_name,

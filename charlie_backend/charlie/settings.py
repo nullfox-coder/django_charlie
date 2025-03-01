@@ -55,6 +55,7 @@ PORT = int(os.getenv("PORT", 8000))
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -110,7 +111,9 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "charlie.wsgi.application"
+ASGI_APPLICATION = "charlie.asgi.application"
 
 
 # Database
@@ -135,10 +138,16 @@ AUTH_USER_MODEL = 'authentication.User'
 
 # WebSocket Channel Layers
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("localhost", 6379)],
+            "symmetric_encryption_keys": [SECRET_KEY],
+            "capacity": 10000,
+        },
     },
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

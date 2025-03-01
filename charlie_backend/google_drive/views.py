@@ -25,7 +25,7 @@ class GoogleDriveAuthView(APIView):
             google_user = GoogleUser.objects.get(user=request.user)
             return Response({
                 "status": "connected",
-                "user_id": google_user.google_id,
+                "google_user_id": google_user.google_id,
                 "expiry": google_user.token_expiry.isoformat()
             })
         except GoogleUser.DoesNotExist:

@@ -1,7 +1,7 @@
-# Project Title
+# Charlie Backend
 
 ## Description
-This project integrates Google Drive functionalities and real-time chat using WebSockets.
+This project integrates Google Login, Google Drive functionalities and real-time chat using WebSockets.
 
 ## Installation
 1. Clone the repository.
@@ -14,14 +14,42 @@ This project integrates Google Drive functionalities and real-time chat using We
 ## Usage
 1. Run the server:
    ```bash
-   python manage.py runserver
+   python manage.py runserver 8080
    ```
 2. Access the API endpoints:
-   - **Google Drive Authentication**: `GET /apiV1/google_drive/auth/`
-   - **List Files**: `GET /apiV1/google_drive/files/`
-   - **Upload File**: `POST /apiV1/google_drive/upload/`
-   - **Download File**: `GET /apiV1/google_drive/download/<file_id>/`
-   - **Chat WebSocket**: `ws://<server_address>/ws/chat/<room_name>/`
+   - **Google Drive Authentication**: 
+   ``
+   curl --location 'http://127.0.0.1:8080/api/auth/google/init'
+   ```
+
+   - **Drive Status**: 
+   ```
+    curl --location 'http://127.0.0.1:8080/api/drive/auth/' \
+--header 'Authorization: Bearer your_access_token'
+   ```
+
+
+   - **List Files**: 
+
+   ```
+   curl --location 'http://127.0.0.1:8080/api/drive/files' \
+--header 'Authorization: Bearer your_access_token'
+```
+
+   - **Upload File**: 
+   
+   ```
+   curl --location 'http://127.0.0.1:8080/api/drive/upload/' \
+--header 'Authorization: Bearer your_access_token \
+--form 'file=@"/C:/Users/User/Downloads/abc.abc"'
+```
+
+   - **Download File**: 
+   
+   ```
+   curl --location 'http://127.0.0.1:8080/api/drive/download/1MApiKFaV1E8Hu0ps_G4xmC7iJltHxH3m' \
+--header 'Authorization: Bearer your_access_token'
+```
 
 ## Testing
 You can test the API endpoints using Postman or any other API testing tool.
