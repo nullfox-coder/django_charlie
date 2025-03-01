@@ -17,10 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from .health import PingView
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
+    path('ping/', PingView.as_view(), name='ping_health_check'),
     path('api/auth/', include('authentication.urls')),
     path('api/drive/', include('google_drive.urls')),
     path('api/chat/', include('chat.urls')),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

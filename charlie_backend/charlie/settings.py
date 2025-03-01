@@ -11,12 +11,24 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 import os
+import json
 from urllib.parse import urlparse
 from dotenv import load_dotenv
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
+from cryptography.fernet import Fernet
 
 load_dotenv() 
+
+
+ENCRYPTION_KEY = os.getenv("ENCRYPTION_KEY")
+
+if not ENCRYPTION_KEY:
+    raise ValueError("❌ Missing ENCRYPTION_KEY in environment variables!")
+
+# Initialize the Fernet cipher with the correct key
+CIPHER = Fernet(ENCRYPTION_KEY.encode())
+
 
 tmpPostgres = urlparse(os.getenv("DATABASE_URL"))
 
@@ -34,6 +46,10 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
+APP_ENV = os.getenv('app_env', None)
+
+PORT = int(os.getenv("PORT", 8000))
+
 
 # Application definition
 
@@ -45,11 +61,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_extensions",
-    "authentification",
-    "chat",
-    "google_drive",
-    "rest_framework",
+    'rest_framework',
+    'corsheaders',
     'channels',
+    'authentication',
+    'google_drive',
+    'chat',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +86,7 @@ if not DEBUG:
     CORS_ALLOWED_ORIGINS = [
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://127.0.0.1:8080"
     ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -94,13 +112,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "charlie.wsgi.application"
 
 
-# Authentication
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-}
-
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -117,6 +128,8 @@ DATABASES = {
         },
     }
 }
+
+AUTH_USER_MODEL = 'authentication.User'
 
 
 # WebSocket Channel Layers
@@ -169,3 +182,26 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# REST Framework settings
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'rest_framework.permissions.IsAuthenticated',
+
+    ],
+}
+
+client_secrets_str = os.getenv("GOOGLE_CLIENT_SECRET", "{}")
+try:
+    CLIENT_SECRETS = json.loads(client_secrets_str)
+    print("Parsed CLIENT_SECRETS:", CLIENT_SECRETS)
+except json.JSONDecodeError as e:
+    print("JSON Error:", e)
+
+
+GOOGLE_REDIRECT_URI = os.getenv('GOOGLE_REDIRECT_URI')
+GOOGLE_CLIENT_REDIRECT = os.getenv('GOOGLE_CLIENT_REDIRECT')
