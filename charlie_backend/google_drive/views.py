@@ -73,6 +73,10 @@ class GoogleDriveUploadView(APIView):
         except GoogleUser.DoesNotExist:
             return Response({"error": "Google account not connected"}, status=400)
 
+from django.http import HttpResponse
+from googleapiclient.http import MediaIoBaseDownload
+import io
+
 class GoogleDriveDownloadView(APIView):
     permission_classes = [IsAuthenticated]
     
@@ -93,14 +97,18 @@ class GoogleDriveDownloadView(APIView):
             while not done:
                 status, done = downloader.next_chunk()
             
-            file_content.seek(0)
+            file_content.seek(0)  # Reset pointer to start
+
+            # Return the file as an attachment for download
             response = HttpResponse(
                 file_content.read(),
-                content_type='application/octet-stream'
+                content_type=file_metadata.get("mimeType", "application/octet-stream")
             )
             response['Content-Disposition'] = f'attachment; filename="{file_metadata["name"]}"'
             
-            return Response({"status": "success", "file": file_metadata})
+            return response  # ✅ Returns the file directly for download
         
         except GoogleUser.DoesNotExist:
             return Response({"error": "Google account not connected"}, status=400)
+        except Exception as e:
+            return Response({"error": str(e)}, status=500)

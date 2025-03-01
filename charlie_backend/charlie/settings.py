@@ -17,6 +17,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 from django.core.management.utils import get_random_secret_key
 from cryptography.fernet import Fernet
+from datetime import timedelta
 
 load_dotenv() 
 
@@ -185,20 +186,27 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # REST Framework settings
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-    ],
-    'DEFAULT_PERMISSION_CLASSES': [
-    'rest_framework_simplejwt.authentication.JWTAuthentication',
-    'rest_framework.permissions.IsAuthenticated',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",  # Require authentication by default
+    ),
+}
 
-    ],
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=1),  # Token expires in 1 hour
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=7),  # Refresh token valid for 7 days
+    "ROTATE_REFRESH_TOKENS": True,  # Refreshing gives a new refresh token
+    "BLACKLIST_AFTER_ROTATION": True,
+    "ALGORITHM": "HS256",  # Algorithm for encoding tokens
+    "SIGNING_KEY": SECRET_KEY,  # Uses Django's secret key
+    "AUTH_HEADER_TYPES": ("Bearer",),  # Accepts Authorization: Bearer <token>
 }
 
 client_secrets_str = os.getenv("GOOGLE_CLIENT_SECRET", "{}")
 try:
     CLIENT_SECRETS = json.loads(client_secrets_str)
-    print("Parsed CLIENT_SECRETS:", CLIENT_SECRETS)
 except json.JSONDecodeError as e:
     print("JSON Error:", e)
 

@@ -37,6 +37,7 @@ class GoogleAuthAPI(APIView):
                 "https://www.googleapis.com/auth/userinfo.profile",
                 "https://www.googleapis.com/auth/userinfo.email",
                 "openid",
+                "https://www.googleapis.com/auth/drive.file", 
             ],
             redirect_uri=call_back,
         )
@@ -64,6 +65,7 @@ class GoogleAuthCallback(APIView):
                     "https://www.googleapis.com/auth/userinfo.profile",
                     "https://www.googleapis.com/auth/userinfo.email",
                     "openid",
+                    "https://www.googleapis.com/auth/drive.file",                 
                 ],
                 redirect_uri=call_back,
             )
