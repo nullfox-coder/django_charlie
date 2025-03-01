@@ -1,6 +1,13 @@
-# django_charlie
+# django_charlie - check charlie_backend only
 Integrating Google Auth and Websocket
 
+
+## Youtube link -
+
+```
+https://www.youtube.com/watch?v=e8AJoxCIfMQ
+
+```
 
 # Google Integration API
 
@@ -36,8 +43,8 @@ This Django project implements integration with Google OAuth 2.0, Google Drive, 
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/google-integration-api.git
-cd google-integration-api
+git clone https://github.com/nullfox-coder/django_charlie.git
+cd charlie_backend
 ```
 
 ### 2. Create and activate a virtual environment
@@ -63,6 +70,7 @@ SECRET_KEY=your-secret-key
 ALLOWED_HOSTS=localhost,127.0.0.1
 DATABASE_URL=your-postgresql-connection-string
 client_secrets=your-google-client-secrets
+ENCRYPTION_KEY=your-key
 ```
 
 ### 5. Database Setup
@@ -71,19 +79,16 @@ If using PostgreSQL with Neon:
 
 ```bash
 # The migrations will automatically apply using the DATABASE_URL
+python manage.py makemigrations
+
 python manage.py migrate
 ```
 
-### 6. Create a superuser
-
-```bash
-python manage.py createsuperuser
-```
 
 ### 7. Run the development server
 
 ```bash
-python manage.py runserver
+python manage.py runserver 8080
 ```
 
 ### 8. Google Cloud Platform Setup
@@ -137,7 +142,7 @@ python manage.py runserver
   - Path parameter: `user_id` - User ID to get chat history with
   - Response: Array of message objects with metadata
 
-- **WebSocket Connection**: `ws://{host}/ws/chat/{room_name}/`
+- **WebSocket Connection**: `ws://{host}/ws/chat/{room_name}/?token=your-token`
   - Establishes WebSocket connection for real-time chat
   - Path parameter: `room_name` - Unique identifier for chat room
 
@@ -149,7 +154,3 @@ Import the included Postman collection to test all API endpoints. The collection
 2. Google Drive operations
 3. Chat functionality
 4. Environment variables for easy configuration
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.

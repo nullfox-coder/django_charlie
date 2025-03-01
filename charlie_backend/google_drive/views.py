@@ -13,7 +13,6 @@ from authentication.models import GoogleUser
 from google_drive.models import DriveFile
 from google_drive.serializers import DriveFileSerializer
 from authentication.utils import get_google_credentials
-
 class GoogleDriveAuthView(APIView):
     """
     View to handle Google Drive authentication.
@@ -72,10 +71,6 @@ class GoogleDriveUploadView(APIView):
         
         except GoogleUser.DoesNotExist:
             return Response({"error": "Google account not connected"}, status=400)
-
-from django.http import HttpResponse
-from googleapiclient.http import MediaIoBaseDownload
-import io
 
 class GoogleDriveDownloadView(APIView):
     permission_classes = [IsAuthenticated]

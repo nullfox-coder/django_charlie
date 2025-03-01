@@ -1,0 +1,297 @@
+{
+	"info": {
+		"_postman_id": "450d092e-6954-4468-bbdb-61d7d0362c18",
+		"name": "Google Integration API",
+		"description": "API collection for Google OAuth, Drive integration, and WebSockets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34509605"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Initiate Google Auth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/auth/google/init",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"auth",
+								"google",
+								"init"
+							]
+						},
+						"description": "Initiates the Google OAuth 2.0 authentication flow"
+					},
+					"response": []
+				}
+			],
+			"description": "Google OAuth 2.0 authentication endpoints"
+		},
+		{
+			"name": "Google Drive",
+			"item": [
+				{
+					"name": "Drive Auth Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwODcwMzA4LCJpYXQiOjE3NDA4NjY3MDgsImp0aSI6IjlkZTZhZjcwY2NkYjRiYmM4ODc1NGYyZWNkOTA5MWUxIiwidXNlcl9pZCI6MX0.2HlsAdWNVmC4UI1Pyf11Qa103Z6SQcb-_B9IQRfD-tg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/drive/auth/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drive",
+								"auth",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Checks if the current user has connected their Google Drive"
+					},
+					"response": []
+				},
+				{
+					"name": "List Drive Files",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwODcwMzA4LCJpYXQiOjE3NDA4NjY3MDgsImp0aSI6IjlkZTZhZjcwY2NkYjRiYmM4ODc1NGYyZWNkOTA5MWUxIiwidXNlcl9pZCI6MX0.2HlsAdWNVmC4UI1Pyf11Qa103Z6SQcb-_B9IQRfD-tg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/drive/files",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drive",
+								"files"
+							]
+						},
+						"description": "Lists files from the user's Google Drive"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload File to Drive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwODcwMzA4LCJpYXQiOjE3NDA4NjY3MDgsImp0aSI6IjlkZTZhZjcwY2NkYjRiYmM4ODc1NGYyZWNkOTA5MWUxIiwidXNlcl9pZCI6MX0.2HlsAdWNVmC4UI1Pyf11Qa103Z6SQcb-_B9IQRfD-tg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "file",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/User/Downloads/graphviz.svg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/drive/upload/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drive",
+								"upload",
+								""
+							]
+						},
+						"description": "Uploads a file to the user's Google Drive"
+					},
+					"response": []
+				},
+				{
+					"name": "Download File from Drive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwODcwMzA4LCJpYXQiOjE3NDA4NjY3MDgsImp0aSI6IjlkZTZhZjcwY2NkYjRiYmM4ODc1NGYyZWNkOTA5MWUxIiwidXNlcl9pZCI6MX0.2HlsAdWNVmC4UI1Pyf11Qa103Z6SQcb-_B9IQRfD-tg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/drive/download/1PFQdD6TryktKBrdZsF5L894GUtFUa9rx",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"drive",
+								"download",
+								"1PFQdD6TryktKBrdZsF5L894GUtFUa9rx"
+							]
+						},
+						"description": "Downloads a file from the user's Google Drive"
+					},
+					"response": []
+				}
+			],
+			"description": "Google Drive integration endpoints"
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Get Chat History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwODYyNDA0LCJpYXQiOjE3NDA4NTg4MDQsImp0aSI6ImYxNDc3NzI5MWZmYzRiOGU5NDg5MmFkOWEyYTJmYzFjIiwidXNlcl9pZCI6Mn0.R6M98R5oriSTVnUdTpSWU5dyymZ_-Qf1s76rRBuH9SI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8080/api/chat/history/3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"chat",
+								"history",
+								"3"
+							]
+						},
+						"description": "Gets chat history between current user and specified user"
+					},
+					"response": []
+				}
+			],
+			"description": "WebSocket chat endpoints"
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "state_param",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "auth_code",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "file_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

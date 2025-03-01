@@ -62,24 +62,13 @@ You can test the API endpoints using Postman or any other API testing tool.
 
 
 
-## Test in console
+## Test postman websocket
 ```
-const socket = new WebSocket('ws://<your_server_address>/ws/chat/<room_name>/');
+ws://127.0.0.1:8080/ws/chat/room1/?token=your_access_token
 
-socket.onopen = function() {
-    console.log('WebSocket connection established');
-    socket.send(JSON.stringify({
-        message: 'Hello, World!',
-        sender_id: 1, // Replace with actual sender ID
-        receiver_id: 2 // Replace with actual receiver ID
-    }));
-};
+{
+    "message": "how are you?",
+    "receiver_id": 3
+}
 
-socket.onmessage = function(event) {
-    const data = JSON.parse(event.data);
-    console.log('Message received:', data);
-};
 ```
-
-## License
-This project is licensed under the MIT License.
