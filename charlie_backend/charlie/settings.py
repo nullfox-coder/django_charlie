@@ -45,7 +45,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', get_random_secret_key())
 
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", "charlie-backend.duckdns.org"]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", "charlie-backend.duckdns.org", "34.46.28.212"]
 
 APP_ENV = os.getenv('app_env', None)
 
