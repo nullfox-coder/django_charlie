@@ -1,8 +1,12 @@
 # django_charlie - check charlie_backend only
 Integrating Google Auth and Websocket
 
+## GCP link (health check) -
+```
+http://34.46.28.212:8080/ping
 
-## Youtube link -
+```
+## Youtube Explanation link -
 
 ```
 https://www.youtube.com/watch?v=e8AJoxCIfMQ
