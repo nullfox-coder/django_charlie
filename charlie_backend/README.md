@@ -72,3 +72,17 @@ ws://127.0.0.1:8080/ws/chat/room1/?token=your_access_token
 }
 
 ```
+
+## Test postman websocket - gcp
+
+```
+ws://charlie-backend.duckdns.org/ws/chat/room1/?token=your_access_token
+
+{
+    "message": "how   jj are you?",
+    "receiver_id": 3
+}
+
+```
+
+
