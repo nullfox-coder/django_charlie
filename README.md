@@ -1,9 +1,11 @@
 # django_charlie - check charlie_backend only
 Integrating Google Auth and Websocket
 
+# Deployed the backend on GCP
+
 ## GCP link (health check) -
 ```
-http://34.46.28.212:8080/ping
+https://charlie-backend.duckdns.org/ping
 
 ```
 ## Youtube Explanation link -
