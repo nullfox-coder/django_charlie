@@ -1,0 +1,285 @@
+{
+	"info": {
+		"_postman_id": "450d092e-6954-4468-bbdb-61d7d0362c18",
+		"name": "Google Integration API",
+		"description": "API collection for Google OAuth, Drive integration, and WebSockets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34509605"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Initiate Google Auth",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://charlie-backend.duckdns.org/api/auth/google/init",
+							"protocol": "https",
+							"host": [
+								"charlie-backend",
+								"duckdns",
+								"org"
+							],
+							"path": [
+								"api",
+								"auth",
+								"google",
+								"init"
+							]
+						},
+						"description": "Initiates the Google OAuth 2.0 authentication flow"
+					},
+					"response": []
+				}
+			],
+			"description": "Google OAuth 2.0 authentication endpoints"
+		},
+		{
+			"name": "Google Drive",
+			"item": [
+				{
+					"name": "Drive Auth Status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwOTI3NTgxLCJpYXQiOjE3NDA5MjM5ODEsImp0aSI6ImIxMGFmNmFiZDBhNzRiM2Q4ZGU1YjYwYzY1NzYyNjRkIiwidXNlcl9pZCI6M30.xepa09S0Qr2y3nfvb97rFgJBBXMpcbjGqVCDKR1UPMo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://charlie-backend.duckdns.org/api/drive/auth/",
+							"protocol": "https",
+							"host": [
+								"charlie-backend",
+								"duckdns",
+								"org"
+							],
+							"path": [
+								"api",
+								"drive",
+								"auth",
+								""
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
+								}
+							]
+						},
+						"description": "Checks if the current user has connected their Google Drive"
+					},
+					"response": []
+				},
+				{
+					"name": "List Drive Files",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "charlie-backend.duckdns.org:",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://charlie-backend.duckdns.org/api/drive/files",
+							"protocol": "https",
+							"host": [
+								"charlie-backend",
+								"duckdns",
+								"org"
+							],
+							"path": [
+								"api",
+								"drive",
+								"files"
+							]
+						},
+						"description": "Lists files from the user's Google Drive"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload File to Drive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwOTE5NjY1LCJpYXQiOjE3NDA5MTYwNjUsImp0aSI6ImEyYzc1YzBkZDg1MDQwZDA4MDA0MjkzNzdmMTM1ZDUxIiwidXNlcl9pZCI6MX0.UUxHOLU_jCH9Ns8ktnV4gUogipOVkzWn3mp83Yq-2Go",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "file",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/User/Downloads/graphviz.svg"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://charlie-backend.duckdns.org/api/drive/upload/",
+							"protocol": "https",
+							"host": [
+								"charlie-backend",
+								"duckdns",
+								"org"
+							],
+							"path": [
+								"api",
+								"drive",
+								"upload",
+								""
+							]
+						},
+						"description": "Uploads a file to the user's Google Drive"
+					},
+					"response": []
+				},
+				{
+					"name": "Download File from Drive",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwOTE5NjY1LCJpYXQiOjE3NDA5MTYwNjUsImp0aSI6ImEyYzc1YzBkZDg1MDQwZDA4MDA0MjkzNzdmMTM1ZDUxIiwidXNlcl9pZCI6MX0.UUxHOLU_jCH9Ns8ktnV4gUogipOVkzWn3mp83Yq-2Go",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://charlie-backend.duckdns.org/api/drive/download/1PFQdD6TryktKBrdZsF5L894GUtFUa9rx",
+							"protocol": "https",
+							"host": [
+								"charlie-backend",
+								"duckdns",
+								"org"
+							],
+							"path": [
+								"api",
+								"drive",
+								"download",
+								"1PFQdD6TryktKBrdZsF5L894GUtFUa9rx"
+							]
+						},
+						"description": "Downloads a file from the user's Google Drive"
+					},
+					"response": []
+				}
+			],
+			"description": "Google Drive integration endpoints"
+		},
+		{
+			"name": "Chat",
+			"item": [
+				{
+					"name": "Get Chat History",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzQwOTE5NjY1LCJpYXQiOjE3NDA5MTYwNjUsImp0aSI6ImEyYzc1YzBkZDg1MDQwZDA4MDA0MjkzNzdmMTM1ZDUxIiwidXNlcl9pZCI6MX0.UUxHOLU_jCH9Ns8ktnV4gUogipOVkzWn3mp83Yq-2Go",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://charlie-backend.duckdns.org/api/chat/history/3",
+							"protocol": "https",
+							"host": [
+								"charlie-backend",
+								"duckdns",
+								"org"
+							],
+							"path": [
+								"api",
+								"chat",
+								"history",
+								"3"
+							]
+						},
+						"description": "Gets chat history between current user and specified user"
+					},
+					"response": []
+				}
+			],
+			"description": "WebSocket chat endpoints"
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "state_param",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "auth_code",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "file_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_id",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
